@@ -14,7 +14,7 @@ function Main(props) {
         setUserName(userData.name);
         setUserDescription(userData.about);
         setUserAvatar(userData.avatar);
-
+        
         setCards(cardsData);
       }).catch(err => {
       console.log(`Ошибка: ${ err }`)
