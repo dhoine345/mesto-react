@@ -12,7 +12,7 @@
 }
 
 .profile__avatar-edit:hover {
-  background-image: url(../../../image/edit-avatar.png);
+  background-image: url(../../../images/edit-avatar.png);
   background-color: #000;
   background-position: center;
   background-repeat: no-repeat;
