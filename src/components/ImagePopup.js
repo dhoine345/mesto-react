@@ -13,6 +13,7 @@ const ImagePopup = ({card, onClose}) => {
         <img
           className="popup__photo"
           src={card.link}
+          alt={card.name}
         />
         <figcaption className="popup__photo-name">{card.name}</figcaption>
       </div>
