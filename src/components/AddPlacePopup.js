@@ -34,7 +34,7 @@ function AddPlacePopup(props) {
       maxLength="30"
       id="input-place-name"
       onChange={handleChangeName}
-      value={name || ''}
+      defaultValue={name}
     />
     <span className="popup__error input-place-name-error"></span>
     <input
