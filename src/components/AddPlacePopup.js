@@ -1,27 +1,31 @@
-import {useRef, useState} from 'react';
+import { useState } from 'react';
 import PopupWithForm from './PopupWithForm';
 
-function AddPlacePopup(props) {
-  const inputRef = useRef()
+function AddPlacePopup({onAddPlace, isOpen, onClose, renderLoading}) {
+  //const inputRef = useRef()
   const [name, setName] = useState('');
+  const [url, setUrl] = useState('')
 
   const handleChangeName = (e) => setName(e.target.value);
+  const handleChangeUrl = (e) => setUrl(e.target.value);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.onAddPlace({
+    onAddPlace({
       name,
-      link: inputRef.current.value
+      link: url
     });
+    setName('')
+    setUrl('')
   };
 
   return (
     <PopupWithForm
-    isOpen={props.isOpen}
-    onClose={props.onClose}
+    isOpen={isOpen}
+    onClose={onClose}
     name="add-card"
     title="Новое место"
-    buttonName={props.renderLoading ? 'Сохранение...' : 'Создать'}
+    buttonName={renderLoading ? 'Сохранение...' : 'Создать'}
     onSubmit={handleSubmit}
   >
     <input
@@ -34,7 +38,7 @@ function AddPlacePopup(props) {
       maxLength="30"
       id="input-place-name"
       onChange={handleChangeName}
-      defaultValue={name}
+      value={name}
     />
     <span className="popup__error input-place-name-error"></span>
     <input
@@ -44,7 +48,8 @@ function AddPlacePopup(props) {
       placeholder="Ссылка на картинку"
       required
       id="input-place-url"
-      ref={inputRef}
+      onChange={handleChangeUrl}
+      value={url}
     />
     <span className="popup__error input-place-url-error"></span>
     </PopupWithForm>

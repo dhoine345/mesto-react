@@ -14,13 +14,12 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setisAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setisEditAvatarPopupOpen] = useState(false);
-  const [, setisImagePopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
   const [isDeleteConfirmPopupOpen, setDeleteConfirmPopupOpen] = useState(false);
-  const [selectedDeleteCard, setSelectedDeleteCard] = useState([]);
-  const [isRenderLoading, setRenderLoading] = useState(false)
+  const [selectedDeleteCard, setSelectedDeleteCard] = useState({});
+  const [isRenderLoading, setRenderLoading] = useState(false);
 
   useEffect(() => {
     Promise.all([api.getProfile(), api.getInitialCards()])
@@ -35,10 +34,7 @@ function App() {
   const handleEditProfileClick = () => setIsEditProfilePopupOpen(true);
   const handleAddPlaceClick = () => setisAddPlacePopupOpen(true);
   const handleEditAvatarClick = () => setisEditAvatarPopupOpen(true);
-  const handleCardClick = (card) => {
-    setSelectedCard(card);
-    setisImagePopupOpen(true);
-  }
+  const handleCardClick = (card) => setSelectedCard(card);
   const handleDeleteButtonClick = (card) => {
     setDeleteConfirmPopupOpen(true);
     setSelectedDeleteCard(card);
@@ -52,6 +48,7 @@ function App() {
       console.log(`Ошибка: ${ err }`)
     });
   };
+
   const handleCardDelete = ((card) => {
     setRenderLoading(true)
     api.deleteCard(card._id).then(() => {
@@ -61,6 +58,7 @@ function App() {
       console.log(`Ошибка: ${ err }`)
     }).finally(() => setRenderLoading(false));
   });
+
   const handleUpdateUser = ({name, about}) => {
     setRenderLoading(true)
     api.editProfile(name, about)
@@ -71,6 +69,7 @@ function App() {
         console.log(`Ошибка: ${ err }`)
       }).finally(() => setRenderLoading(false));
   };
+
   const handleUpdateAvatar = ({avatar}) => {
     setRenderLoading(true)
     api.editAvatar(avatar).then(res => {

@@ -1,43 +1,43 @@
-import {useEffect} from 'react';
+import { useEffect } from 'react';
 
-function PopupWithForm(props) {
+function PopupWithForm({ isOpen, onClose, name, title, onSubmit, children, buttonName }) {
   useEffect(() => {
-    if(!props.isOpen) return;
+    if(!isOpen) return;
 
     function handleEsc(e) {
       if(e.key === "Escape") {
-        props.onClose()
+        onClose()
       }
     };
 
     document.addEventListener('keydown', handleEsc);
+
     return ()=> document.removeEventListener('keydown', handleEsc);
   });
 
   return (
     <div
-    className={`popup popup_type_${props.name}
-    ${props.isOpen ? "popup_opened" : ""}`}
+    className={`popup popup_type_${name} ${isOpen ? "popup_opened" : ""}`}
     >
       <div className="popup__container">
         <button
           className="popup__close-button button-hover"
           type="button"
-          onClick={props.onClose}
+          onClick={onClose}
         />
-        <h2 className="popup__form-title">{props.title}</h2>
+        <h2 className="popup__form-title">{title}</h2>
         <form
-          onSubmit={props.onSubmit}
-          className={`popup__form popup__form_type_${props.name}`}
-          name={props.name}
-          noValidate
+          onSubmit={onSubmit}
+          className={`popup__form popup__form_type_${name}`}
+          name={name}
+          //noValidate
         >
-          {props.children}
+          {children}
           <button
             className="popup__submit-button"
             type="submit"
           >
-            {props.buttonName}
+            {buttonName}
           </button>
         </form>
       </div>

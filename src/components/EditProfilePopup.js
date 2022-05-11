@@ -1,8 +1,8 @@
-import {useContext, useEffect, useState} from 'react';
+import { useContext, useEffect, useState } from 'react';
 import PopupWithForm from './PopupWithForm';
-import {CurrentUserContext} from '../contexts/CurrentUserContext';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-function EditProfilePopup(props) {
+function EditProfilePopup({ isOpen, onUpdateUser, onClose, renderLoading }) {
   const currentUser = useContext(CurrentUserContext);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -10,13 +10,15 @@ function EditProfilePopup(props) {
   useEffect(() => {
     setName(currentUser.name);
     setDescription(currentUser.about);
-  }, [currentUser]);
+  }, [currentUser, isOpen]);
 
   const handleChangeName = (e) => setName(e.target.value);
+
   const handleChangeDescription = (e) => setDescription(e.target.value);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.onUpdateUser({
+    onUpdateUser({
       name,
       about: description,
     });
@@ -24,13 +26,13 @@ function EditProfilePopup(props) {
 
   return (
     <PopupWithForm
-      isOpen={props.isOpen}
-      onClose={props.onClose}
+      isOpen={isOpen}
+      onClose={onClose}
       name="edit-profile"
       title="Редактировать профиль"
-      buttonName={props.renderLoading ? 'Сохранение...' : 'Сохранить'}
+      buttonName={renderLoading ? 'Сохранение...' : 'Сохранить'}
       onSubmit={handleSubmit}
-      renderLoading={props.renderLoading}
+      renderLoading={renderLoading}
       >
       <input
         type="text"
@@ -40,7 +42,7 @@ function EditProfilePopup(props) {
         minLength="2"
         maxLength="40"
         id="input-name"
-        defaultValue={name}
+        value={name || ''}
         onChange={handleChangeName}
       />
       <span className="popup__error input-name-error"></span>
@@ -52,7 +54,7 @@ function EditProfilePopup(props) {
         minLength="2"
         maxLength="200"
         id="input-job"
-        defaultValue={description}
+        value={description || ''}
         onChange={handleChangeDescription}
       />
         <span className="popup__error input-job-error"></span>
