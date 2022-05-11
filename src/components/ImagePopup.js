@@ -1,6 +1,18 @@
-import React from 'react';
+import {useEffect} from 'react';
 
-const ImagePopup = ({card, onClose}) => {
+const ImagePopup = ({card, onClose, isOpen}) => {
+  useEffect(() => {
+    if(!isOpen) return;
+
+    function handleEsc(e) {
+      if(e.key === "Escape") {
+        onClose()
+      }
+    };
+
+    document.addEventListener('keydown', handleEsc);
+    return ()=> document.removeEventListener('keydown', handleEsc);
+  });
 
   return (
     <div className={`popup popup_photo ${card._id && 'popup_opened'}`}>

@@ -23,9 +23,11 @@
 @import url(./blocks/element/__place-name/element__place-name.css);
 @import url(./blocks/element/__like/element__like.css);
 @import url(./blocks/element/__like/_active/element__like_active.css);
-@import url(./blocks/element/__delete/element__delete.css);
+@import url(./blocks/element/__delete-button/element__delete-button.css);
 @import url(./blocks/element/__like-and-counter/element__like-and-counter.css);
 @import url(./blocks/element/__likes-counter/element__likes-counter.css);
+@import url(./blocks/element/__delete-button/_hidden/element__delete-button_hidden.css);
+@import url(./blocks/element/__delete-button/_visible/element__delete-button_visible.css);
 
 @import url(./blocks/popup/popup.css);
 @import url(./blocks/popup/__container/popup__container.css);
