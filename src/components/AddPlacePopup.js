@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PopupWithForm from './PopupWithForm';
 
 function AddPlacePopup({onAddPlace, isOpen, onClose, renderLoading}) {
@@ -15,9 +15,16 @@ function AddPlacePopup({onAddPlace, isOpen, onClose, renderLoading}) {
       name,
       link: url
     });
-    setName('')
-    setUrl('')
   };
+
+  useEffect(() => {
+      setName('')
+      setUrl('')
+  }, [isOpen])
+
+  /*Я видимо что-то не понимаю. С useEffect и зависимостью от пропса isOpen поля обновляются при каждом изменении данного пропса, а не только после успешной отправки запроса.
+  При обнулении именно при сабмите формы получается ожидаемое пользователем поведение.
+  И не нашел в чек-листе требования именно такого поведения полей формы. Почему именно критическое замечание?*/
 
   return (
     <PopupWithForm
